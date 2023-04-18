@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Jwt.Enum
 {
-    public class Class1
+    public enum RolesEnum
     {
+        ADMIN = 3,
+        CLIENT = 1,
+        USER = 2
     }
 }

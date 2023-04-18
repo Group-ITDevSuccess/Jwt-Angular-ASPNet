@@ -252,7 +252,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\FixturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -352,6 +354,10 @@
     <ProjectReference Include="..\Jwt.Entity\Jwt.Entity.csproj">
       <Project>{06C0DDEB-6277-48A2-8B4C-B5F2CA330F87}</Project>
       <Name>Jwt.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jwt.Utility\Jwt.Utility.csproj">
+      <Project>{BE45729F-F26E-4D20-89D3-18126F2ECED6}</Project>
+      <Name>Jwt.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

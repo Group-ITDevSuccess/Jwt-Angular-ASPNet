@@ -145,9 +145,11 @@
   <ItemGroup>
     <Compile Include="Entity.cs" />
     <Compile Include="Mapping\EntityMap.cs" />
+    <Compile Include="Mapping\RolesMap.cs" />
     <Compile Include="Mapping\UsersMap.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles.cs" />
     <Compile Include="Services\UsersReq.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>
@@ -155,6 +157,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Jwt.Enum\Jwt.Enum.csproj">
+      <Project>{C4542405-B332-44FC-B0B8-331229C6AA95}</Project>
+      <Name>Jwt.Enum</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

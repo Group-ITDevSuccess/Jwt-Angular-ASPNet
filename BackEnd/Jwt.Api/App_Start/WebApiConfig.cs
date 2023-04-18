@@ -34,6 +34,7 @@ namespace Jwt.Api
         private static void SetDependencies(UnityContainer container)
         {
             container.RegisterType<EntityRepository<Users>, UsersRepository>();
+            container.RegisterType<EntityRepository<Roles>, RolesRepository>();
         }
     }
 }
