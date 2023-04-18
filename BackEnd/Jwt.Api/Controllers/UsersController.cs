@@ -1,6 +1,7 @@
 ﻿using Jwt.Business;
 using Jwt.Entity;
 using Jwt.Entity.Services;
+using Jwt.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,14 @@ namespace Jwt.Api.Controllers
     public class UsersController : ApiController
     {
         private EntityRepository<Users> _usersRepository = null;
-        public UsersController(EntityRepository<Users> usersRepository)
+        private EntityRepository<Roles> _rolesRepository = null;
+        public UsersController(
+            EntityRepository<Users> usersRepository,
+            EntityRepository<Roles> rolesRepository
+            )
         {
             _usersRepository = usersRepository;
+            _rolesRepository = rolesRepository;
         }
 
         [HttpPost]
@@ -56,5 +62,36 @@ namespace Jwt.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Erreur lors de l'ajout de user : {e.Message}");
             }
         }
+
+        [HttpPost]
+        [Route("api/users/update")]
+        public async Task<HttpResponseMessage> UpdateUsers([FromUri] Guid idUser, [FromBody] UsersReq usersInput)
+        {
+            var specificUsers = await _usersRepository.GetById(idUser);
+
+            if (specificUsers == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Utilisateur Introuvable pour le mise a jour");
+
+            specificUsers.FirstName = usersInput.FirstName;
+            specificUsers.LastName = usersInput.LastName;
+            specificUsers.Email = usersInput.Email;
+            specificUsers.PassWord = usersInput.PassWord;
+            List<Roles> roles = new List<Roles>();
+
+            foreach (RolesEnum item in usersInput.Role)
+            {
+                Roles role = ((RolesRepository)_rolesRepository).FindRolesInDb(item);
+                roles.Add(role);
+            }
+
+            try
+            {
+                specificUsers.Role = roles;
+                _usersRepository.SaveOrUpdate(specificUsers);
+            }
+            catch (Exception) { throw; }
+
+            return Request.CreateResponse(HttpStatusCode.OK, specificUsers);
+        }
+
     }
 }
