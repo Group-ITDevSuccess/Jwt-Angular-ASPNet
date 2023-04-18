@@ -150,6 +150,7 @@
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs" />
+    <Compile Include="Services\RolesReq.cs" />
     <Compile Include="Services\UsersReq.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>

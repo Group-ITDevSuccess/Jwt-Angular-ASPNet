@@ -13,6 +13,12 @@ namespace Jwt.Entity.Mapping
         {
             Abstract();
             Map(x => x.Role).Not.Nullable();
+
+            HasManyToMany(x => x.User)
+                .Cascade.All()
+                .Inverse()
+                .Table("UsersRoles")
+                .Not.LazyLoad();
         }
     }
 }

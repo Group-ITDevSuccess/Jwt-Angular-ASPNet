@@ -157,6 +157,10 @@
       <Project>{06C0DDEB-6277-48A2-8B4C-B5F2CA330F87}</Project>
       <Name>Jwt.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Jwt.Enum\Jwt.Enum.csproj">
+      <Project>{C4542405-B332-44FC-B0B8-331229C6AA95}</Project>
+      <Name>Jwt.Enum</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
