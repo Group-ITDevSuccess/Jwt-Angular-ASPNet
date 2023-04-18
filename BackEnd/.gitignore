@@ -1,0 +1,16 @@
+/Jwt.Api/!.vs
+/Jwt.Api/bin
+/Jwt.Api/obj
+
+/Jwt.Business/bin
+/Jwt.Business/obj
+
+/Jwt.Entity/bin
+/Jwt.Entity/obj
+
+
+/Jwt.Enum/bin
+/Jwt.Enum/obj
+
+/Jwt.Utility/bin
+/Jwt.Utility/obj
