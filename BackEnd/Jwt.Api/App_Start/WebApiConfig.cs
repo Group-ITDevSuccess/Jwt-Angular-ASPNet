@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Jwt.Api.Resolvers;
+using Jwt.Business;
+using Jwt.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Unity;
 
 namespace Jwt.Api
 {
@@ -11,6 +15,12 @@ namespace Jwt.Api
         {
             // Configuration et services API Web
 
+
+            // DI:
+            UnityContainer unityContainer = new UnityContainer();
+            SetDependencies(unityContainer);
+            config.DependencyResolver = new UnityResolver(unityContainer);
+
             // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +29,11 @@ namespace Jwt.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+        }
+
+        private static void SetDependencies(UnityContainer container)
+        {
+            container.RegisterType<EntityRepository<Users>, UsersRepository>();
         }
     }
 }
