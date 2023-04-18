@@ -34,6 +34,18 @@ namespace Jwt.Api.Controllers
         }
 
         [HttpPost]
+        [Route("api/users")]
+        public async Task<HttpResponseMessage> GetUserById([FromUri] Guid idUser)
+        {
+
+            var specificUsers = await _usersRepository.GetById(idUser);
+
+            if (specificUsers == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Utilisateur Introuvable");
+
+            return Request.CreateResponse(HttpStatusCode.OK, specificUsers);
+        }
+
+        [HttpPost]
         [Route("api/users/add")]
         public HttpResponseMessage AddUsers([FromBody] UsersReq usersInput)
         {
