@@ -17,7 +17,7 @@ namespace Jwt.Entity.Mapping
             HasManyToMany(x => x.User)
                 .Cascade.All()
                 .Inverse()
-                .Table("UsersRoles")
+                .Table("Users_Roles")
                 .Not.LazyLoad();
         }
     }

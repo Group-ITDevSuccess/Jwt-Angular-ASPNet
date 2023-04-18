@@ -21,7 +21,7 @@ namespace Jwt.Entity.Mapping
             Map(x => x.IsDeleted).Not.Nullable();
 
             HasManyToMany(x => x.Role)
-                .Table("UsersRoles")
+                .Table("Users_Roles")
                 .Not.LazyLoad();
         }
     }

@@ -72,8 +72,7 @@ namespace Jwt.Api.Controllers
             }
             catch (Exception e)
             {
-
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Erreur lors de l'ajout de user : {e.Message}");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -102,7 +101,10 @@ namespace Jwt.Api.Controllers
                 specificUsers.Role = roles;
                 _usersRepository.SaveOrUpdateAsynk(specificUsers);
             }
-            catch (Exception) { throw; }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK, specificUsers);
         }
@@ -123,12 +125,39 @@ namespace Jwt.Api.Controllers
             }
             catch (Exception e)
             {
-
-                throw e;
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
-           
+
             return Request.CreateResponse(HttpStatusCode.OK, $"Utilisateur Effacer !");
         }
+
+        [HttpGet]
+        [Route("api/users/destroy")]
+        public async Task<HttpResponseMessage> DestroyUser([FromUri] Guid idUser)
+        {
+            try
+            {
+                var specificUser = await _usersRepository.GetById(idUser);
+                if (specificUser == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"User with id {idUser} not found.");
+                }
+
+                foreach (var item in specificUser.Role.ToList())
+                {
+                    specificUser.Role.Remove(item);
+                }
+
+                await _usersRepository.Delete(specificUser);
+
+                return Request.CreateResponse(HttpStatusCode.OK, $"User with id {idUser} has been deleted.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
 
     }
 }
