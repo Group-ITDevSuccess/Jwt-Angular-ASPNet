@@ -20,5 +20,9 @@ namespace Jwt.Entity.Services
         public string Email { get; set; }
         [JsonProperty("password")]
         public string PassWord { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [JsonProperty("isDeleted")]
+        public bool IsDeleted { get; set; } = false;
     }
 }

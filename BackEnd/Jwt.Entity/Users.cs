@@ -13,6 +13,8 @@ namespace Jwt.Entity
         public virtual string Email { get; set; }
         public virtual IList<Roles> Role { get; set; }
         public virtual string PassWord { get; set; }
-        public virtual bool HasToken { get; set; }
+        public virtual bool HasToken { get; set; } 
+        public virtual DateTime CreatedAt { get; set; } = DateTime.Now;
+        public virtual bool IsDeleted { get; set; } = false;
     }
 }

@@ -62,6 +62,8 @@ namespace Jwt.Api.Controllers
             user.LastName = usersInput.LastName;
             user.Email = usersInput.Email;
             user.PassWord = usersInput.PassWord;
+            user.CreatedAt = usersInput.CreatedAt;
+            user.IsDeleted = usersInput.IsDeleted;
 
             try
             {
@@ -98,11 +100,34 @@ namespace Jwt.Api.Controllers
             try
             {
                 specificUsers.Role = roles;
-                _usersRepository.SaveOrUpdate(specificUsers);
+                _usersRepository.SaveOrUpdateAsynk(specificUsers);
             }
             catch (Exception) { throw; }
 
             return Request.CreateResponse(HttpStatusCode.OK, specificUsers);
+        }
+
+        [HttpGet]
+        [Route("api/users/remove")]
+        public async Task<HttpResponseMessage> RemoveUser([FromUri] Guid idUser)
+        {
+            try
+            {
+                var specificUsers = await _usersRepository.GetById(idUser);
+
+                if (specificUsers == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Utilisateur Introuvable pour la suppression");
+
+                specificUsers.IsDeleted = true;
+
+                _usersRepository.SaveOrUpdateAsynk(specificUsers);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
+            return Request.CreateResponse(HttpStatusCode.OK, $"Utilisateur Effacer !");
         }
 
     }

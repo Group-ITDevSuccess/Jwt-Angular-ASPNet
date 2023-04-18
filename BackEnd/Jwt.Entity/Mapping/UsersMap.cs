@@ -17,6 +17,8 @@ namespace Jwt.Entity.Mapping
             Map(x => x.Email).Not.Nullable();
             Map(x => x.PassWord).Not.Nullable();
             Map(x => x.HasToken).Nullable();
+            Map(x => x.CreatedAt).Not.Nullable();
+            Map(x => x.IsDeleted).Not.Nullable();
 
             HasManyToMany(x => x.Role)
                 .Table("UsersRoles")
