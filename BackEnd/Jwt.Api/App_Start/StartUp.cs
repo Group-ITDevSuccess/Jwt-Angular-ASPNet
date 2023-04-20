@@ -1,7 +1,16 @@
-﻿using Microsoft.Owin;
+﻿using Jwt.Api.Providers;
+using Jwt.Business;
+using Jwt.Entity;
+using Jwt.Interface;
+using Jwt.Utility;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.Jwt;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using Unity;
@@ -14,11 +23,11 @@ namespace Jwt.Api.App_Start
         public void Configuration(IAppBuilder app)
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            /*UnityContainer unityContainer = new UnityContainer();*/
-           /* SetDependencies(unityContainer);
-            ConfigureOAuth(app, unityContainer);*/
+            UnityContainer unityContainer = new UnityContainer();
+            SetDependencies(unityContainer);
+            ConfigureOAuth(app, unityContainer);
         }
-/*
+
         private void SetDependencies(UnityContainer container)
         {
             container.RegisterType<IAuthRepository, AuthRepository>();
@@ -54,6 +63,6 @@ namespace Jwt.Api.App_Start
                         new SymmetricKeyIssuerSecurityTokenProvider(issuerKey, TextEncodings.Base64Url.Decode(secretKey))
                     },
                 });
-        }*/
+        }
     }
 }
